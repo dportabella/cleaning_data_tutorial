@@ -44,6 +44,11 @@ object Utils {
       text.substring((index - leftContextLength).max(0), (index + rightContextLength + 1).min(text.length - 1))
   }
 
+  def printList[T](title: String, list: Iterable[T]): Unit = {
+    println("\n+++ " + title)
+    list.foreach(println)
+    println()
+  }
 
   def stemText(text: String): String = {
     val pipeline = new StanfordCoreNLP(PropertiesUtils.asProperties(

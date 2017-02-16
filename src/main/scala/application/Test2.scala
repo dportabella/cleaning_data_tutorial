@@ -19,8 +19,8 @@ object Test2 extends App {
 //    .replaceAll("[\\h\\s\\v]+", " ")
 //    .replaceAll("[^\\p{IsAlphabetic}]", " ").replaceAll(" +", " ").toLowerCase
 
-  val nameFreq = text.split(" ").toList.countFreq
-  nameFreq.foreach(println)
+  val tokenFreq = text.split(" ").toList.countFreq
+  tokenFreq.foreach(println)
 
 
   val cases = text.split(" ").toList.filter(_.contains("kilometres"))
