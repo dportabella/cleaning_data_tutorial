@@ -13,9 +13,11 @@ object TextCleanExample extends App {
 //  val text = "The settlement of Iceland (Icelandic: Landnámsöld) is generally believed to have begun in the second half of the 9th century, when Norse settlers migrated across the North Atlantic."
 //  val text = "Additionally, Iceland is only about 450\u00A0kilometres from the Faroes which had been visited by Irish monks in the 6th century, and settled by the Norse around 650."
 
+
+  // enable or disable each of the following post-processing (stemText, stripAccents, replaceAlls, toLowecase...)
   val text =
     Jsoup.parse(new java.net.URL(url), 0).text()
-    .stemText                                                        // StanfordNLP library: stem words analyzing the whole sentence (instead of word by word stemmer)
+//    .stemText                                                        // StanfordNLP library: stem words analyzing the whole sentence (instead of word by word stemmer)
     .stripAccents                                                    // Apache Commons library
     .replaceAll("[\\h\\s\\v]+", " ")                                 // convert all types of spaces (tab, new line (\r, \n), non-breaking space... to a normal space)
     .replaceAll("[^\\p{IsAlphabetic}]", " ").replaceAll(" +", " ")   // take only the letters (remove digit and punctuations marks)
