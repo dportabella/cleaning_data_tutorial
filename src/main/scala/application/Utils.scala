@@ -10,6 +10,7 @@ import edu.stanford.nlp.ling.{CoreAnnotations, CoreLabel}
 import edu.stanford.nlp.pipeline.{Annotation, StanfordCoreNLP}
 import edu.stanford.nlp.trees.{LabeledScoredTreeNode, Tree, TreeCoreAnnotations, WordStemmer}
 import edu.stanford.nlp.util.PropertiesUtils
+import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.text.translate.UnicodeEscaper
 
 object Utils {
@@ -33,6 +34,13 @@ object Utils {
     escaper.translate(text, out)
     out.toString
   }
+
+  implicit class RichString(text: String) {
+    def stemText: String = Utils.stemText(text)
+
+    def stripAccents: String = StringUtils.stripAccents(text)
+  }
+
 
   def stemText(text: String): String = {
     val pipeline = new StanfordCoreNLP(PropertiesUtils.asProperties(

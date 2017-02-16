@@ -1,34 +1,26 @@
 package application
 
-import java.text.Normalizer
-
 import application.Utils.{escapeUnicode, _}
-import org.apache.commons.lang3.StringUtils
 import org.jsoup.Jsoup
 
 import scala.util.matching.Regex
 //import edu.stanford.nlp.process.Stemmer
-import edu.stanford.nlp.trees.WordStemmer
 
 object Test2 extends App {
 
-//  val url = "https://fr.wikipedia.org/wiki/Colonisation_de_l%27Islande"
-
   val url = "https://en.wikipedia.org/wiki/Settlement_of_Iceland"
+  // val url = "https://fr.wikipedia.org/wiki/Colonisation_de_l%27Islande"
+  // val text = Jsoup.parse(new java.net.URL(url), 0).text().take(300)
 
-   val text1 = StringUtils.stripAccents(Jsoup.parse(new java.net.URL(url), 0).text())
-//  val text = Jsoup.parse(new java.net.URL(url), 0).text()
-     .replaceAll("[\\h\\s\\v]+", " ")
-     .replaceAll("[^\\p{IsAlphabetic}]", " ").replaceAll(" +", " ").toLowerCase
 //   val text = "Page d'aide sur l'homonymie Cet article concerne le peuplement de l'Islande durant l'âge des Vikings. Pour la conquête progressive de l'Islande par le roi de Norvège au xiiie\u00A0siècle, voir Âge des Sturlungar."
-    val text2 = "The settlement of Iceland (Icelandic: Landnámsöld) is generally believed to have begun in the second half of the 9th century, when Norse settlers migrated across the North Atlantic."
-  //  val text = Jsoup.parse(new java.net.URL(url), 0).text().take(300)
+//   val text = "The settlement of Iceland (Icelandic: Landnámsöld) is generally believed to have begun in the second half of the 9th century, when Norse settlers migrated across the North Atlantic."
 
-  val text = stemText(text2)
-//  println(text)
-
-//  val text = Jsoup.parse(new java.net.URL(url), 0).text()
-
+  val text =
+    Jsoup.parse(new java.net.URL(url), 0).text()
+//    .stemText
+    .stripAccents
+    .replaceAll("[\\h\\s\\v]+", " ")
+    .replaceAll("[^\\p{IsAlphabetic}]", " ").replaceAll(" +", " ").toLowerCase
 
   val nameFreq = text.split(" ").toList.countFreq
   nameFreq.foreach(println)
