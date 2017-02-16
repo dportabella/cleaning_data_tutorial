@@ -3,7 +3,7 @@ package application
 import java.util
 
 import edu.stanford.nlp.dcoref._
-import edu.stanford.nlp.ling.CoreAnnotations.OriginalTextAnnotation
+import edu.stanford.nlp.ling.CoreAnnotations.{OriginalTextAnnotation, ValueAnnotation}
 import edu.stanford.nlp.ling._
 import edu.stanford.nlp.pipeline._
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations
@@ -42,12 +42,13 @@ object StanfordNLPExample {
       val tree: Tree = sentence.get(classOf[TreeCoreAnnotations.TreeAnnotation])
       println("tree: " + tree)
       println("tree leaves: " + tree.getLeaves().mkString(" "))
-      println("tree leaves: " + originalText(tree).mkString(" "))
+      println("tree text: " + treeText(tree).mkString(" "))
 
-      val s = new WordStemmer; s.visitTree(tree)
+      val s = new WordStemmer
+      s.visitTree(tree)
       println("stemmed tree: " + tree)
-      println("stemmed setence: " + sentence)
-      println("tree leaves: " + originalText(tree).mkString(" "))
+      println("stemmed sentence: " + sentence)
+      println("stemmed tree text: " + treeText(tree).mkString(" "))
 
       val dependencies = sentence.get(classOf[SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation])
       println("SemanticGraph: " + dependencies)
@@ -57,10 +58,16 @@ object StanfordNLPExample {
     println("CorefChain: " + graph)
   }
 
-  def originalText(tree: Tree): List[String] = {
+  def labelText(label: CoreLabel): String = {
+    val v = label.getString(classOf[ValueAnnotation])
+    if (v.startsWith("-")) label.getString(classOf[OriginalTextAnnotation])
+    else v
+  }
+
+  def treeText(tree: Tree): List[String] = {
       tree
         .getLeaves().asInstanceOf[util.ArrayList[LabeledScoredTreeNode]]
-        .map(_.label().asInstanceOf[CoreLabel].getString(classOf[OriginalTextAnnotation]))
+        .map(n => labelText(n.label().asInstanceOf[CoreLabel]))
         .toList
   }
 }
