@@ -12,7 +12,7 @@ object PatentNumbersPatterns extends App {
   val numbers = SQL(query).as(SqlParser.str(1).*)
 
   def getPattern(patent: String): String =
-    patent.replaceAll("\\d", "#")
+    patent.replaceAll("[0-9]", "#")
 
   printList("patterns", numbers.map(getPattern).countFreq)
 
@@ -21,17 +21,18 @@ object PatentNumbersPatterns extends App {
 /*
 +++ patterns from patstat
 5153109   US_#######_A
-4038307   US_##########_Ad
-2886457   US_#######_Bd
+4038307   US_##########_A#
+4038307   US_##########_A#
+2886457   US_#######_B#
 898968    US_######_A
-299486    US_D######_Sd
+299486    US_D######_S#
 89802     US_#####_A
 71751     US_D######_S
 23555     US_RE#####_E
-13542     US_PP#####_Pd
-13406     US_#######_Ad
+13542     US_PP#####_P#
+13406     US_#######_A#
 8983      US_####_A
-8419      US_RE#####_Ed
+8419      US_RE#####_E#
 6321      US_####_P
 ...
 
