@@ -11,19 +11,13 @@ object RemoveStopWordsExample extends App {
   printList("first ten names", names.take(10))
 
 
-  // show char frequency
-  val charFreq: List[FreqCount[Char]] =
-    names.flatMap(_.toList).countFreq.sortBy(_.value)
-  printList("freq of chars", charFreq.map(c => c.value + "\t" + escapeUnicode(c.value) + "\t" + c.count))
-
-
   // show token frequency
   val tokenFreq: List[FreqCount[String]] =
     names.flatMap(_.split(" ")).countFreq
   printList("top tokens", tokenFreq.take(100))
 
 
-  // stop words: limited, co., corporatiopn,gmbh.
+  // example stop words: limited, co., corporatiopn,gmbh.
   // regular expression ignores case: (?i) and take into account only entire words: \b
   val stopWords = "(?i)\\b(Limited|Co\\.|Corporation|Ltd\\.|GmbH)\\b"
 
@@ -102,42 +96,7 @@ IVT - Industrie Vertrieb Technik GmbH & Co. KG
 'Marioff Corporation Oy'  --> 'Marioff  Oy'
 'Saltigo GmbH'  --> 'Saltigo '
 'IVT - Industrie Vertrieb Technik GmbH & Co. KG'  --> 'IVT - Industrie Vertrieb Technik  & Co. KG'
-
-
-
-
-+++ freq of chars
- 	\u0020	184426
-!	\u0021	3
-#	\u0023	1
-&	\u0026	1460
-'	\u0027	387
-(	\u0028	403
 ...
-0	\u0030	548
-1	\u0031	606
-2	\u0032	371
-3	\u0033	283
-...
-A	\u0041	54007
-B	\u0042	14581
-C	\u0043	28474
-D	\u0044	19962
-...
- 	\u00A0	58
-¡	\u00A1	109
-¢	\u00A2	2
-¥	\u00A5	17
-±	\u00B1	28
-‰	\u2030	63
-...
-
-
-this shows that the database has been imported with an incorrect encoding. Example EPFL names from EPFLPatentsProject.scala:
-- Ecole Polytechnique Federale de Lausanne (EPFL)
-- Ã‰cole Polytechnique FÃ©dÃ©rale de Lausanne (EPFL)
-- Ecole Polytechnique FÃ©dÃ©rale de Lausanne (EPFL)
-- â€¢COLE POLYTECHNIQUE FUDURALE DE LAUSANNE
 */
 
 
