@@ -2,24 +2,26 @@
 
 Simple examples about cleaning text data
 
-## TextCleanExample.scala
+See source code, output and comments on the scala files:
+
+## [TextCleanExample.scala](https://github.com/dportabella/cleaning_data_tutorial/blob/master/src/main/scala/application/TextCleanExample.scala)
 - Word freq
 - Special chars, identify and clean
 - Word stemmer
 
-## StanfordNLPExample.scala
+## [StanfordNLPExample.scala](https://github.com/dportabella/cleaning_data_tutorial/blob/master/src/main/scala/application/StanfordNLPExample.scala)
 - Natural Language Processing
 
-## notebook/regexs.ipynb, regexs.pdf
+## notebook/regexs.ipynb, [regexs.pdf](https://github.com/dportabella/cleaning_data_tutorial/blob/master/notebook/regexs.pdf)
 - Regexs
 
-## RemoveStopWordsExample.scala
+## [RemoveStopWordsExample.scala](https://github.com/dportabella/cleaning_data_tutorial/blob/master/src/main/scala/application/RemoveStopWordsExample.scala)
 - Stop words
 
-## PatentNumbersPatterns.scala
+## [PatentNumbersPatterns.scala](https://github.com/dportabella/cleaning_data_tutorial/blob/master/src/main/scala/application/PatentNumbersPatterns.scala)
 - Find patterns in tokens
 
-## EPFLPatentsProject.scala
+## [EPFLPatentsProject.scala](https://github.com/dportabella/cleaning_data_tutorial/blob/master/src/main/scala/application/EPFLPatentsProject.scala)
 - querying Patstat outside the SQL relational model
 
 
@@ -35,8 +37,12 @@ Simple examples about cleaning text data
 
 # How to run a scala example
 ```
-$ export dbUrl="jdbc:mysql://cdm6-143.epfl.ch/patstat_2015a?user=mysqluser&password=__PASSWORD__&useSSL=false"
-$ sbt "runMain application.TextCleanExample $dbUrl"
+$ sbt "runMain application.TextCleanExample"
+$ sbt "runMain application.StanfordNLPExample"
+$ export dbUrl="jdbc:mysql://example.com/patstat_2015a?user=__USER__&password=__PASSWORD__&useSSL=false"
+$ sbt "runMain application.RemoveStopWordsExample $dbUrl"
+$ sbt "runMain application.PatentNumbersPatterns $dbUrl"
+$ sbt "runMain application.EPFLPatentsProject $dbUrl"
 ```
 
 # How to run jupyther with the regexs example
