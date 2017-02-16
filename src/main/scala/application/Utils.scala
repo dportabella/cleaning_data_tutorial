@@ -39,6 +39,9 @@ object Utils {
     def stemText: String = Utils.stemText(text)
 
     def stripAccents: String = StringUtils.stripAccents(text)
+
+    def context(index: Int, leftContextLength: Int = 20, rightContextLength: Int = 20): String =
+      text.substring((index - leftContextLength).max(0), (index + rightContextLength + 1).min(text.length - 1))
   }
 
 

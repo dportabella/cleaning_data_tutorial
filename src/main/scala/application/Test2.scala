@@ -3,9 +3,6 @@ package application
 import application.Utils.{escapeUnicode, _}
 import org.jsoup.Jsoup
 
-import scala.util.matching.Regex
-//import edu.stanford.nlp.process.Stemmer
-
 object Test2 extends App {
 
   val url = "https://en.wikipedia.org/wiki/Settlement_of_Iceland"
@@ -18,30 +15,22 @@ object Test2 extends App {
   val text =
     Jsoup.parse(new java.net.URL(url), 0).text()
 //    .stemText
-    .stripAccents
-    .replaceAll("[\\h\\s\\v]+", " ")
-    .replaceAll("[^\\p{IsAlphabetic}]", " ").replaceAll(" +", " ").toLowerCase
+//    .stripAccents
+//    .replaceAll("[\\h\\s\\v]+", " ")
+//    .replaceAll("[^\\p{IsAlphabetic}]", " ").replaceAll(" +", " ").toLowerCase
 
   val nameFreq = text.split(" ").toList.countFreq
   nameFreq.foreach(println)
 
 
-  val c = text.split(" ").count(_ == "siècle")
-  println("aa: " + c)
+  val cases = text.split(" ").toList.filter(_.contains("kilometres"))
+  println("cases: " + cases)
 
-
-  def textContext(text: String, index: Int, leftContextLength: Int = 20, rightContextLength: Int = 20): String =
-    text.substring((index - leftContextLength).max(0), (index + rightContextLength + 1).min(text.length - 1))
-
-  println(textContext(text, text.indexOf('\u00A0')))
-  println(textContext(text.replaceAll("\u00A0", "_"), text.indexOf('\u00A0')))
+  val nonBreakingSpace = "\u00A0"
+  val pos = text.indexOf(nonBreakingSpace)
+  println(text.context(pos))
+  println(text.replaceAll(nonBreakingSpace, "_").context(pos))
 
   val charFreq = text.toList.countFreq.sortBy(_.value)
-
   charFreq.foreach(c => println(c.value + "\t" + escapeUnicode(c.value) + "\t" + c.count))
-
-
-  val nonWordCharacterR: Regex = "[^\\p{IsAlphabetic}0-9]".r
-//      .replaceAll("[\\h\\s\\v]+", " ")
-
 }
