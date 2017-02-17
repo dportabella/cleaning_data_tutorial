@@ -47,7 +47,7 @@ $ sbt "runMain application.EPFLPatentsProject $dbUrl"
 
 # How to run jupyther with the regexs example
 ```
-docker run -it --rm -p 8888:8888 -v ./notebook:/home/jovyan/work jupyter/all-spark-notebook start-notebook.sh
+docker run -it --rm -p 8888:8888 -v $PWD/notebook:/home/jovyan/work jupyter/all-spark-notebook start-notebook.sh
 ```
 
 
